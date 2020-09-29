@@ -1,0 +1,33 @@
+# takes the token for input and returns the data of the user
+# from the token's data, we can retrieve information about the user
+GET http://localhost:3000/posts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSHVnbyIsInRpdGxlIjoibW9pIiwicGFzc3dvcmQiOiIkMmIkMTAkWUUvSmgxdDd5LmFaV0pGVDZUNkpOdTdSMGRIQ3VuYTVqUDNqelFsRnE0ZGNsbzZBMUNzdFciLCJpYXQiOjE2MDEzNzgxMTB9.TrmxAnE387uwiUzkx1lRq0r3GUoxSgRpWf1R9_AyXsA
+
+###
+
+# get the token for this user similar to authentification, 
+# if there is no token then the authentification has failed
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "name": "Hugo",
+    "password": "test"
+}
+
+###
+
+# Create a user with the three fields
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+    "name": "Hugo",
+    "title": "moi",
+    "password": "test"
+}
+
+###
+
+# get the list of all the users
+GET http://localhost:3000/user
