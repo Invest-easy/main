@@ -11,23 +11,28 @@ POST http://localhost:3000/login
 Content-Type: application/json
 
 {
-    "name": "Hugo",
+    "name": "foo",
     "password": "test"
 }
 
 ###
 
 # Create a user with the three fields
-POST http://localhost:3000/user
+POST http://localhost:3000/users/signup
 Content-Type: application/json
 
 {
-    "name": "Hugo",
-    "title": "moi",
-    "password": "test"
+    "name": "foo2",
+    "firstname": "bar2",
+    "email": "foo2@bar.com",
+    "password": "test2",
+    "telephone": "0987654321",
+    "birthDate": "01/01/21",
+    "adress": "Grenoble",
+    "nationality": "French"
 }
 
 ###
 
 # get the list of all the users
-GET http://localhost:3000/user
+GET http://localhost:3000/users

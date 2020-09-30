@@ -5,6 +5,18 @@ const app = express()
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
+const mongoose = require('mongoose');
+const userRouter = require('./routes/users');
+const userCtrl = require('./controllers/users');
+const User = require('./models/user');
+console.log(process.env.PASSWORD_BDD)
+mongoose.connect(`mongodb+srv://hderoche:${process.env.PASSWORD_BDD}@cluster0.mnhs6.mongodb.net/<dbname>?retryWrites=true&w=majority`,  { useNewUrlParser: true, useUnifiedTopology: true } ).then(()=>{
+    console.log('Successfully connected to MongoDB Atlas')
+}).catch((error)=>{
+    console.log('Unable to connect to the database');
+    console.error(error);
+})
+
 // Allow the application to handle Json files
 app.use(express.json())
 
@@ -16,17 +28,16 @@ app.get('/posts', authenticateToken, (req, res) => {
 })
 
 app.post('/login', async (req, res) => {
-    const user = posts.find(user => user.name === req.body.name)
-    if (user == null) {
-        res.status(400).send('Cannot find user')
-    }
+    
+    // Need to get the user from the database, compare pwd and enable connection
+
     // Authentification
     try{
     // If the password correspond, send the token
     // Else catch and send error
-    if (await bcrypt.compare(req.body.password, user.password)) {
+    if (await bcrypt.compare(req.body.password, found_user.password)) {
 
-        const access_token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+        const access_token = jwt.sign(found_user, process.env.ACCESS_TOKEN_SECRET)
         res.json({  
                     message: "Success",
                     token : {access_token: access_token}
@@ -42,28 +53,6 @@ app.post('/login', async (req, res) => {
 })
 
 
-app.post('/user', async (req, res) => {
-    try{
-        const hashedPassword = await bcrypt.hash(req.body.password, 10)
-        
-        const user = {
-            name: req.body.name,
-            title: req.body.title,
-            password: hashedPassword
-        }
-        posts.push(user)
-        res.status(201).send()
-    }
-    catch{
-        res.status(500).send()
-    }
-})
-
-
-app.get('/user', (req, res)=>{
-    res.json(posts)
-})
-
 // Middleware to check if the authentification token is valid
 function authenticateToken(req, res, next) {
     const authHeader = req.headers['authorization']
@@ -72,9 +61,10 @@ function authenticateToken(req, res, next) {
     
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) return res.sendStatus(403)
-        req.user = user
-        next()
+        req.user = user;
+        next();
     })
 }
+app.use('/users', userRouter);
 
-app.listen(3000)
+app.listen(3000);
