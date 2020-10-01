@@ -36,3 +36,4 @@ Content-Type: application/json
 
 # get the list of all the users
 GET http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1Zjc0NTVkZGY2ODI1NzdiMWRjMzlmY2UiLCJpYXQiOjE2MDE1NDM2NjEsImV4cCI6MTYwMTYzMDA2MX0.i5eHw5lo2BWwY2JRmAHQdjvBZHI0z0ipQLWKIee2rdY
