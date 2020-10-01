@@ -1,7 +1,9 @@
+require('dotenv').config();
 const User = require('../models/user');
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
 
-exports.createUser = async (req, res) => {
+exports.signin = async (req, res) => {
     try{
         // hashing the pwd using bcrypt and salt
         await bcrypt.hash(req.body.password, 10).then((hash)=>{
@@ -45,23 +47,40 @@ exports.getAllUsers = (req, res)=>{
     })
 };
 
-exports.getOneUser = (req, res)=>{
-    User.findOne({
-        _id: req.params.id
-    }).then((user)=>{
-        res.status(200).json(user);
-    }).catch((error)=>{
-        res.status(404).json({
+
+
+exports.login = (req, res) => {
+    User.findOne({email: req.body.email}).then(
+        (user) => {
+            if (!user) {
+                return res.status(401).json({
+                    error: new Error('User not found')
+                });
+            }
+            bcrypt.compare(req.body.password, user.password).then(
+                (valid) => {
+                    if (!valid) {
+                        return res.status(401).json({
+                            error: new Error('Password do not match')
+                        });
+                    }
+                    console.log(process.env.ACCESS_TOKEN_SECRET);
+                    const token = jwt.sign({userid: user.id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '24h'});
+                    res.status(200).json({
+                        userId: user.id,
+                        token: token
+                    });
+                }
+            ).catch((error)=>{
+                res.status(500).json({
+                    error: error
+                });
+            });
+        }
+    ).catch((erorr) => {
+        res.status(500).json({
             error: error
         });
-    });
+    })
 };
-
-exports.getUserByEmail = (req, res) =>{
-    User.findOne({name: req.body.name}).then((user)=>{
-        res.status(200).json(user);
-    }).catch((error)=>{
-        res.status(404).json({ error: error });
-    });
-}
 
