@@ -10,7 +10,10 @@
   "author": "hugo deroche",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "open-api": "^0.2.2",
+    "swagger-jsdoc": "^4.2.0",
+    "swagger-ui-express": "^4.1.4"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",

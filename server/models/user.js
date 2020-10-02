@@ -1,6 +1,43 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
+
+
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      User:
+ *        type: object
+ *        required:
+ *          - name
+ *          - firstname
+ *          - email
+ *          - password
+ *          - telephone
+ *          - birthDate
+ *          - adress
+ *          - nationality
+ *        properties:
+ *          name:
+ *              type: string
+ *          firstname:
+ *              type: string
+ *          email:
+ *              type: string
+ *              description: email needs to be unique
+ *          password:
+ *              type: string
+ *          telephone:
+ *              type: string
+ *          birthDate:
+ *              type: string
+ *              description: age must be above 18
+ *          adress:
+ *              type: string
+ *          nationality:
+ *              type: string
+ */
 const userSchema = mongoose.Schema({
     name: { type: String, required: true },
     firstname: { type: String, required: true },

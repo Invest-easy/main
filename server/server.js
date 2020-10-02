@@ -7,7 +7,25 @@ const jwt = require('jsonwebtoken')
 
 const mongoose = require('mongoose');
 const userRouter = require('./routes/users');
+const swagger = require('swagger-ui-express');
+const swaggerJSDoc = require('swagger-jsdoc');
 
+const swaggerOptions = {
+    swaggerDefinition: {
+        components: {},
+        info: {
+            title: "NodeJS API",
+            description: "API documentation ",
+            contact: { name: "Hugo Deroche"},
+            server: ['http://localhost:5000']
+        },
+        openapi: '3.0.0'
+    },
+    apis:[
+        './routes/*.js',
+        'models/user.js',
+    ]
+}
 
 
 
@@ -65,7 +83,11 @@ server.on('listening', () => {
   const bind = typeof address === 'string' ? 'pipe ' + address : 'port ' + port;
   console.log('Listening on ' + bind);
 });
+
 app.use('/users', userRouter);
+
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swagger.serve, swagger.setup(swaggerDocs, {explorer: true}));
+
+
 server.listen(port);
-
-
