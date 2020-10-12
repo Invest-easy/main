@@ -25,7 +25,7 @@ exports.add = async (req, res) => {
 }
 
 exports.getOneShare = (req, res) => {
-    Share.findOne({ticker: req.body.ticker}).then((share) => {
+    Share.findOne({ticker: req.params.ticker}).then((share) => {
         res.status(200).json(share);
     }).catch((error) => {
         res.status(404).json({

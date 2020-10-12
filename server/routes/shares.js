@@ -13,17 +13,17 @@ const share = require('../models/share');
  * /shares/add:
  *   post:
  *     tags:
- *       - name: User Authentification
- *     summary: Signup a new user
- *     description: Signup a new user
+ *       - name: Shares
+ *     summary: Add a share to the database
+ *     description: Add a share to the database
  *     produces:
  *       - application/json
  *     consumes:
  *       - application/json
  *     parameters:
  *       - in: body
- *         name: user
- *         description: The user to login
+ *         name: share
+ *         description: The share to register
  *         schema:
  *              type: object
  *              required: true
@@ -87,17 +87,17 @@ router.get('/', auth, shareCtrl.getAllShares);
  * /shares/:ticker:
  *   post:
  *     tags:
- *       - name: User Authentification
- *     summary: Log a user
- *     description: Login to the application
+ *       - name: Shares
+ *     summary: Find By Ticker
+ *     description: Once logged in, can look for share
  *     produces:
  *       - application/json
  *     consumes:
  *       - application/json
  *     parameters:
  *       - in: body
- *         name: User
- *         description: The user to login
+ *         name: Share
+ *         description: The share to look for
  *         schema:
  *              type: object
  *              required: true
