@@ -3,6 +3,7 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 
+
 exports.signin = async (req, res) => {
     try{
         // hashing the pwd using bcrypt and salt
@@ -17,7 +18,7 @@ exports.signin = async (req, res) => {
             birthDate: req.body.birthDate,
             adress: req.body.adress,
             nationality: req.body.nationality
-        })
+        });
 
         // save function from mongodb -> returns a promise
         user.save().then(()=>{

@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken')
 
 const mongoose = require('mongoose');
 const userRouter = require('./routes/users');
+const shareRouter = require('./routes/shares');
 const swagger = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
 
@@ -85,6 +86,7 @@ server.on('listening', () => {
 });
 
 app.use('/users', userRouter);
+app.use('/shares', shareRouter);
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use('/api-docs', swagger.serve, swagger.setup(swaggerDocs, {explorer: true}));
