@@ -33,7 +33,7 @@ const uniqueValidator = require('mongoose-unique-validator');
  *              type: string
  *              description: amount of money
  *          tags:
- *              type: Array
+ *              type: Array<String>
  *          volume:
  *              type: Number
  *          per:
@@ -45,8 +45,8 @@ const shareSchema = mongoose.Schema({
     description: {type:String, required:true},
     lastPrice: {type: Number, required: true},
     isUp:{type: Boolean, required: true},
-    capitalisation: {type: Boolean, required: true},
-    tags:{type: Array, required: true},
+    capitalisation: {type: Number, required: true},
+    tags:{type: [String], required: true},
     volume :{type: Number, required: true},
     per:{type: Number , required: true}
 

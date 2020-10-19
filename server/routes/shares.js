@@ -58,7 +58,7 @@ const share = require('../models/share');
  *       500:
  *         description: internal error
  */
-router.post('/addshare', auth, shareCtrl.add);
+router.post('/addshare', shareCtrl.add);
 
 
 
@@ -79,43 +79,31 @@ router.post('/addshare', auth, shareCtrl.add);
  *       500:
  *         description: internal error (MongoDB promise failed)
  */
-router.get('/', auth, shareCtrl.getAllShares);
+router.get('/', shareCtrl.getAllShares);
 
 /** 
  * @swagger
  *
- * /shares/:ticker:
- *   post:
+ * /shares/{ticker}:
+ *   get:
  *     tags:
  *       - name: Shares
  *     summary: Find By Ticker
  *     description: Once logged in, can look for share
- *     produces:
- *       - application/json
- *     consumes:
- *       - application/json
  *     parameters:
- *       - in: body
- *         name: Share
+ *       - in: path
+ *         name: ticker
+ *         type: string
+ *         required: true
  *         description: The share to look for
- *         schema:
- *              type: object
- *              required: true
- *                 - email
- *                 - password
- *              properties:
- *                 email:
- *                     type: string
- *                 password:
- *                     type: string
  *     responses:
- *       200:
- *         description: login
- *       401:
- *         description: password or email do not match
+ *       200: 
+ *         description: Status OK
+ *       404:
+ *         description: cannot find the share
  *       500:
  *         description: internal error
  */
-router.post('/:ticker', auth, shareCtrl.getOneShare);
+router.get('/:ticker', shareCtrl.getOneShare);
 
 module.exports = router;

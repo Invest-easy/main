@@ -1,5 +1,7 @@
 # ignore files from git commit
 server/node_modules
-server/.env
+
 server/.DS_Store
 .DS_Store
+server/requests.rest
+server/.env
