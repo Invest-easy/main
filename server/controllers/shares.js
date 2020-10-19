@@ -12,13 +12,18 @@ exports.add = async (req, res) => {
             isUp: req.body.isUp,
             capitalisation: req.body.capitalisation,
             tags: req.body.tags,
+            volume: req.body.volume,
+            per: req.body.per
         });
+    
         share.save().then( () => {
             console.log(`Successfully created the share : ${share.name}`);
-            res.status(201).send();
+            res.status(201).send('Created');
         }).catch( (error) => {
             res.status(500).send({message: error.message});
         });
+    
+        
     } catch{
         res.status(500).send();
     };
@@ -26,9 +31,16 @@ exports.add = async (req, res) => {
 
 exports.getOneShare = (req, res) => {
     Share.findOne({ticker: req.params.ticker}).then((share) => {
-        res.status(200).json(share);
+        if(share === null){
+            res.status(404).json({
+                error: 'cannot find the share : ' + req.params.ticker
+            });
+        }
+        else{
+            res.status(200).json(share);
+        }
     }).catch((error) => {
-        res.status(404).json({
+        res.status(500).json({
             error: error
         });
     });

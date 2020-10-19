@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const http = require('http');
+
 const app = require('./app');
 
 const jwt = require('jsonwebtoken')
@@ -18,7 +19,7 @@ const swaggerOptions = {
             title: "NodeJS API",
             description: "API documentation ",
             contact: { name: "Hugo Deroche"},
-            server: ['http://localhost:5000']
+            server: ['http://localhost:3000']
         },
         openapi: '3.0.0'
     },

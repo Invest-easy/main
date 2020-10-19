@@ -15,26 +15,12 @@ const auth = require('../middleware/auth');
  *       - name: User Authentification
  *     summary: Signup a new user
  *     description: Signup a new user
- *     produces:
- *       - application/json
- *     consumes:
- *       - application/json
- *     parameters:
- *       - in: body
- *         name: user
- *         description: The user to login
- *         schema:
- *              type: object
- *              required: true
- *                 - name
- *                 - fistname
- *                 - email
- *                 - password
- *                 - telephone
- *                 - birthDate
- *                 - adress
- *                 - nationality
- *              properties:
+ *     requestBody:
+ *        content:
+ *          application/json:
+ *             schema:      
+ *               type: object
+ *               properties:
  *                 name:
  *                     type: string
  *                 firstname:
@@ -51,9 +37,18 @@ const auth = require('../middleware/auth');
  *                     type: string
  *                 nationality:
  *                     type: string
+ *               example:   
+ *                  name: foo
+ *                  firstname: bar
+ *                  email: foo@bar.com
+ *                  password: foobar
+ *                  telephone: 0123456789
+ *                  birthDate: 2001/02/20
+ *                  adress: Paris
+ *                  nationality: French
  *     responses:
  *       201:
- *         description: user successfully created
+ *         description: created
  *       500:
  *         description: internal error
  */
@@ -78,7 +73,7 @@ router.post('/signup', userCtrl.signin);
  *       500:
  *         description: internal error (MongoDB promise failed)
  */
-router.get('/', auth, userCtrl.getAllUsers);
+router.get('/', userCtrl.getAllUsers);
 
 /** 
  * @swagger
@@ -88,25 +83,19 @@ router.get('/', auth, userCtrl.getAllUsers);
  *     tags:
  *       - name: User Authentification
  *     summary: Log a user
- *     description: Login to the application
- *     produces:
- *       - application/json
- *     consumes:
- *       - application/json
- *     parameters:
- *       - in: body
- *         name: User
- *         description: The user to login
- *         schema:
- *              type: object
- *              required: true
- *                 - email
- *                 - password
- *              properties:
- *                 email:
+ *     requestBody:
+ *        content:
+ *          application/json:
+ *             schema:      
+ *               type: object
+ *               properties:
+ *                  email:
  *                     type: string
- *                 password:
+ *                  password:
  *                     type: string
+ *               example:   
+ *                  email: foo@bar.com
+ *                  password: test
  *     responses:
  *       200:
  *         description: login

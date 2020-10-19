@@ -16,49 +16,47 @@ const share = require('../models/share');
  *       - name: Shares
  *     summary: Add a share to the database
  *     description: Add a share to the database
- *     produces:
- *       - application/json
- *     consumes:
- *       - application/json
- *     parameters:
- *       - in: body
- *         name: share
- *         description: The share to register
- *         schema:
- *              type: object
- *              required: true
- *                 - name
- *                 - fistname
- *                 - email
- *                 - password
- *                 - telephone
- *                 - birthDate
- *                 - adress
- *                 - nationality
- *              properties:
+ *     requestBody:
+ *        content:
+ *          application/json:
+ *             schema:      
+ *               type: object
+ *               properties:
  *                 name:
  *                     type: string
- *                 firstname:
+ *                 ticker:
  *                     type: string
- *                 email:
+ *                 description:
  *                     type: string
- *                 password:
- *                     type: string
- *                 telephone:
- *                     type: string
- *                 birthDate:
- *                     type: string
- *                 adress:
- *                     type: string
- *                 nationality:
- *                     type: string
+ *                 lastPrice:
+ *                     type: number
+ *                 isUp:
+ *                     type: boolean
+ *                 capitalisation:
+ *                     type: number
+ *                 tags:
+ *                     type: Array<String>
+ *                 volume:
+ *                     type: number
+ *                 per:
+ *                     type: number
+ *               example:   
+ *                  name: CompanyA
+ *                  ticker: COMP
+ *                  description: Company A
+ *                  lastPrice: 302.12
+ *                  isUp: true
+ *                  capitalisation: 290920192
+ *                  tags: ["Tech", "CAC40"]
+ *                  volume: 3938293
+ *                  per: 3781938
  *     responses:
  *       201:
- *         description: user successfully created
+ *         description: share successfully created
  *       500:
  *         description: internal error
  */
-router.post('/addshare', shareCtrl.add);
+router.post('/add', shareCtrl.add);
 
 
 
