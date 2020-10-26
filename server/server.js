@@ -12,7 +12,6 @@ const shareRouter = require('./routes/shares');
 const walletRouter = require('./routes/wallets');
 const swagger = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
 
 const swaggerOptions = {
@@ -95,6 +94,7 @@ server.on('listening', () => {
 app.use('/users', userRouter);
 app.use('/shares', shareRouter);
 app.use('/wallets', walletRouter)
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
 
 app.use('/api-docs', swagger.serve, swagger.setup(swaggerDocs, {explorer: true}));
 

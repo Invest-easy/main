@@ -5,6 +5,7 @@ const router = express.Router();
 const userCtrl = require('../controllers/users');
 const auth = require('../middleware/auth');
 
+
 //Routes
 /** 
  * @swagger
@@ -62,7 +63,7 @@ router.post('/signup', userCtrl.signin);
  * /users/:
  *   get:
  *     tags:
- *       - name: User Overview
+ *       - name: User
  *     summary: Get the list of all users
  *     description: Get the list of all users
  *     responses:
@@ -106,4 +107,31 @@ router.get('/', userCtrl.getAllUsers);
  */
 router.post('/login', userCtrl.login);
 
+
+router.delete('/delete/:id', userCtrl.deleteUser);
+
+/** 
+ * @swagger
+ *
+ * /users/{id}:
+ *   get:
+ *     tags:
+ *       - name: User
+ *     summary: Find By Id
+ *     description: Once logged in, can look for the Id of the user
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: The user to look for
+ *     responses:
+ *       200: 
+ *         description: Status OK
+ *       404:
+ *         description: cannot find the user
+ *       500:
+ *         description: internal error
+ */
+router.get('/:id', userCtrl.getProfile);
 module.exports = router;

@@ -50,8 +50,93 @@ router.get('/:id', walletCtrl.getById);
  *         description: internal error (MongoDB promise failed)
  */
 router.get('/', walletCtrl.getAll);
-router.put('/addshare', walletCtrl.addShares);
+
+/** 
+ * @swagger
+ *
+ * /wallets/addshares:
+ *   put:
+ *     tags:
+ *       - name: Wallet
+ *     summary: Add shares to a portefolio
+ *     description: Add shares to a portefolio
+ *     requestBody:
+ *        content:
+ *          application/json:
+ *             schema:      
+ *               type: object
+ *               properties:
+ *                 user_id:
+ *                     type: string
+ *                 portefolio:
+ *                     type: Array
+ *               example:   
+ *                  user_id: 27enefnZDZIjdiz
+ *                  portefolio: [{share_id: "37Jiei82Nei", count: 2}, {...}]
+ *     responses:
+ *       200: 
+ *         description: Status OK
+ *       404:
+ *         description: cannot add shares to the portefolio
+ *       500:
+ *         description: internal error
+ */
+router.put('/addshares', walletCtrl.addShares);
+
+/** 
+ * @swagger
+ *
+ * /wallets/delete/{id}:
+ *   delete:
+ *     tags:
+ *       - name: Wallet
+ *     summary: Find By id and delete it
+ *     description: Once logged in, looks for a wallet by id and deletes it
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: The wallet to look for and delete
+ *     responses:
+ *       200: 
+ *         description: Status OK
+ *       404:
+ *         description: cannot find the wallet
+ *       500:
+ *         description: internal error
+ */
 router.delete('/delete/:id', walletCtrl.deleteWallet);
+
+/** 
+ * @swagger
+ *
+ * /wallets/create:
+ *   post:
+ *     tags:
+ *       - name: Wallet
+ *     summary: Create a wallet to a given user
+ *     description: Create and instantiate a wallet for a given user
+ *     requestBody:
+ *        content:
+ *          application/json:
+ *             schema:      
+ *               type: object
+ *               properties:
+ *                 user_id:
+ *                     type: string
+ *                 portefolio:
+ *                     type: Array
+ *                     description: empty by default
+ *               example:   
+ *                  user_id: 27enefnZDZIjdiz
+ *                  portefolio: []
+ *     responses:
+ *       200: 
+ *         description: Status OK
+ *       500:
+ *         description: internal error
+ */
 router.post('/create', walletCtrl.createWallet);
 
 module.exports = router;

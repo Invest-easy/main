@@ -50,7 +50,7 @@ exports.getAll = (req, res) => {
 exports.addShares = (req, res) => {
     Wallet.findById({user_id: req.params.user_id}).then( (doc) =>{
         req.body.add_share.forEach(element => {
-            doc.portefolio.push({share: element.share_id, count: element.count});
+            doc.portefolio.push({share_id: element.share_id, count: element.count});
         });
         res.status(200).send(doc);
     }).catch((err) =>{

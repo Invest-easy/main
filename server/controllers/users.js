@@ -85,3 +85,22 @@ exports.login = (req, res) => {
     })
 };
 
+exports.deleteUser = (req, res) => {
+    User.findByIdAndDelete(req.params.id, (err, result) => {
+        if(!err && result){
+        console.log('User : ' + req.params.id + ' deleted' );
+        res.status(200).send({message: 'Successfully deleted the User : ' + req.params.id});
+        }else{
+            console.error(err);
+            res.status(500).send({error: err})
+        }
+    });
+}
+
+exports.getProfile = (req, res) => {
+    User.findOne({email: req.params.email}).then((doc) => {
+        res.status(200).send(doc);
+    }).catch((error) => {
+        res.status(404).send({error: error});
+    });
+}
