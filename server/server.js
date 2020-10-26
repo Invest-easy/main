@@ -9,8 +9,11 @@ const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose');
 const userRouter = require('./routes/users');
 const shareRouter = require('./routes/shares');
+const walletRouter = require('./routes/wallets');
 const swagger = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+
 
 const swaggerOptions = {
     swaggerDefinition: {
@@ -31,7 +34,7 @@ const swaggerOptions = {
 
 
 
-console.log(process.env.PASSWORD_BDD)
+//console.log(process.env.PASSWORD_BDD)
 mongoose.connect(`mongodb+srv://hderoche:${process.env.PASSWORD_BDD}@cluster0.mnhs6.mongodb.net/<dbname>?retryWrites=true&w=majority`,  { useNewUrlParser: true, useUnifiedTopology: true } ).then(()=>{
     console.log('Successfully connected to MongoDB Atlas')
 }).catch((error)=>{
@@ -86,10 +89,13 @@ server.on('listening', () => {
   console.log('Listening on ' + bind);
 });
 
+/**
+ * Endpoints
+ */
 app.use('/users', userRouter);
 app.use('/shares', shareRouter);
+app.use('/wallets', walletRouter)
 
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use('/api-docs', swagger.serve, swagger.setup(swaggerDocs, {explorer: true}));
 
 
