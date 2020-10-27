@@ -19,9 +19,12 @@ class TagItDetails extends React.Component {
 
 const styles = StyleSheet.create({
   chip: {
-    marginLeft : 5,
-    marginRight:5,
-    height : 30
+    marginLeft : 7.5,
+    marginRight:7.5,
+    paddingLeft:10,
+    paddingRight:10,
+    height : 35,
+    alignItems: 'center'
   }
 })
 

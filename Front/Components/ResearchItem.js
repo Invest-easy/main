@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Color, TouchableOpacity, ImageBackground } from 'react-native';
 import LineChartLight from './LineChartLight';
-import { Avatar, Card, IconButton } from 'react-native-paper';
+import { Avatar, Card, IconButton, Snackbar } from 'react-native-paper';
 
 
-class StockItem extends React.Component {
+class ResearchItem extends React.Component {
 
   title_size_fct = function(size) {
      return {
@@ -14,41 +14,39 @@ class StockItem extends React.Component {
    }
 
   render() {
-    const {displayDetailsForStock, stock} = this.props
+    const {addToFav, displayDetailsForStock, stock} = this.props
     var varcolor = stock.isUp ? 'green' : 'red';
     //var icon = stock.isUp ? require('../Images/green_rectangle.png') : require('../Images/red_rectangle.png');
     var font_size;
     if(stock.name.length > 10){
-      this.font_size = 17;
+      this.font_size = 20;
     } else {
-      this.font_size = 20
+      this.font_size = 22
     }
     return (
-      <TouchableOpacity style={styles.main_container} onPress={() => displayDetailsForStock(stock)}>
-        <Image
-          style={styles.image}
-          source={stock.logo_name}
-        />
-        <View style={styles.content_container}>
-          <View style={styles.texts_container}>
-            <View style={styles.name_container}>
-              <Text
-            //  numberOfLines={1}
-              // allowFontScaling
-               style={this.title_size_fct(this.font_size)}>{stock.name}</Text>
-              <Text style={styles.ticker_text}>{stock.ticker}</Text>
-            </View>
-            <View style={styles.chart}>
-              <LineChartLight style={{flex: 1}}/>
-            </View>
-            <View style={styles.price_overall_container}>
-
-                <Text style={styles.price_text}>{stock.lastPrice}€</Text>
-                <Text style={{color:varcolor, fontStyle:'italic', fontSize: 16}}>{stock.var24}</Text>
+      <View style={styles.main_container}>
+        <TouchableOpacity style={styles.touchableDetails} onPress={() => displayDetailsForStock(stock)}>
+          <Image
+            style={styles.image}
+            source={stock.logo_name}
+          />
+          <View style={styles.content_container}>
+            <View style={styles.texts_container}>
+              <View style={styles.name_container}>
+                <Text
+              //  numberOfLines={1}
+                // allowFontScaling
+                 style={this.title_size_fct(this.font_size)}>{stock.name}</Text>
+                <Text style={styles.ticker_text}>{stock.ticker}</Text>
+              </View>
             </View>
           </View>
-        </View>
-      </TouchableOpacity>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.price_overall_container} onPress={() => addToFav(stock)}>
+          <Image source={require("../Images/add.png")} style={{width : 25, height : 25}}/>
+        </TouchableOpacity>
+      </View>
+
     )
   }
 }
@@ -66,21 +64,23 @@ const styles = StyleSheet.create({
   },
 
   main_container: {
-    height: 80,
+    height: 70,
     flexDirection: 'row',
     borderBottomWidth : 1,
     borderBottomColor : "rgba(140,140,140,.5)",
-    marginLeft:10,
-    marginRight:10,
+    marginLeft:20,
+    marginRight:20,
   },
-  chart:{
-    flex : 3
+  touchableDetails: {
+    flexDirection: 'row',
+    flex : 5
   },
   image: {
     width: 40,
     height: 40,
-    marginTop : 20,
-    marginRight : 5
+    marginTop : 15,
+    marginRight : 5,
+    marginLeft: 10
   //  backgroundColor: 'gray'
   },
   content_container: {
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
   },
   name_container: {
     flex: 2.5,
+    marginLeft : 5,
   },
   title_text: {
     fontWeight: 'bold',
@@ -104,9 +105,9 @@ const styles = StyleSheet.create({
   },
 
   price_overall_container: {
-    flex: 2,
+    flex: 1,
     justifyContent : 'center',
-    alignItems: 'flex-end',
+    alignItems: 'center',
   },
   price_text: {
     textAlign: 'center',
@@ -138,4 +139,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default StockItem
+export default ResearchItem

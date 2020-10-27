@@ -1,58 +1,40 @@
 import React from 'react'
-import { AreaChart, Grid, XAxis } from 'react-native-svg-charts'
-import { Defs, LinearGradient, Stop } from 'react-native-svg'
-import dateFns from 'date-fns'
-
-import * as shape from 'd3-shape'
+import { Chart, Line, Area, HorizontalAxis, VerticalAxis, Tooltip } from 'react-native-responsive-linechart'
 
 class ChartDetails extends React.PureComponent {
+
+  state={
+    cursorValue: null
+  }
+
+
     render() {
-        const data = [
-          {
-            value: Math.random() * 10 + 1,
-          },
-          {
-            value: Math.random() * 10 + 1,
-          },{
-            value: Math.random() * 10 + 1,
-          },{
-            value: Math.random() * 10 + 1,
-          },{
-            value: Math.random() * 10 + 1,
-          },{
-            value: Math.random() * 10 + 1,
-          },{
-            value: Math.random() * 10 + 1,
-          },{
-            value: Math.random() * 10 + 1,
-          },
-
-        ]
-
-        const Gradient = ({ index }) => (
-              <Defs key={index}>
-                  <LinearGradient id={'gradient'} x1={'0%'} y1={'0%'} x2={'0%'} y2={'100%'}>
-                      <Stop offset={'0%'} stopColor={'rgb(19, 138, 187)'} stopOpacity={0.8}/>
-                      <Stop offset={'100%'} stopColor={'rgb(19, 138, 187)'} stopOpacity={0.2}/>
-                  </LinearGradient>
-              </Defs>
-          )
-
-          return (
-              <AreaChart
-                yAccessor={ ({ item }) => item.value }
-                style={{flex : 1}}
-                data={data}
-                contentInset={{ top: 20}}
-                curve={shape.curveNatural}
-                svg={{ fill: 'url(#gradient)' }}
-                showGrid={false}
-              >
-              <Gradient/>
-              </AreaChart>
+        return(
 
 
-          )
+          <Chart
+            style={{ height: 200, width: '100%', marginTop: 100 }}
+            data={[
+              { x: -2, y: 15 },
+              { x: -1, y: 10 },
+              { x: 0, y: 12 },
+              { x: 1, y: 7 },
+              { x: 2, y: 6 },
+              { x: 3, y: 3 },
+              { x: 4, y: 5 },
+              { x: 5, y: 8 },
+              { x: 6, y: 12 },
+              { x: 7, y: 14 },
+              { x: 8, y: 12 },
+              { x: 9, y: 13.5 },
+              { x: 10, y: 18 },
+            ]}
+            padding={{ left: 40, bottom: 20, right: 20, top: 20 }}
+          >
+
+            <Area />
+          </Chart>
+        )
     }
 }
 

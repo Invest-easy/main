@@ -11,6 +11,7 @@ class TagItem extends React.Component {
   constructor(props){
     super(props)
     this.selected = false
+    this.tagPressed = this.props.tagPressed
   }
 
   _pressed(item){
@@ -26,10 +27,15 @@ class TagItem extends React.Component {
   render() {
     const item = this.props.item
 
+    if(this.tagPressed != undefined){
+      console.log("yessss")
+    }
+
     return (
       <Chip style={styles.chip}
             onPress={() => this._pressed({item})}
             selected = {this.selected}
+            mode = {'flat'}
       >
       {item}
       </Chip>
@@ -40,7 +46,11 @@ class TagItem extends React.Component {
 const styles = StyleSheet.create({
   chip: {
     marginLeft : 5,
-    marginRight:5
+    marginRight:5,
+    paddingLeft : 10,
+    paddingRight : 10,
+    height : 35,
+    alignItems:'center',
   }
 })
 

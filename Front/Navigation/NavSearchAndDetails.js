@@ -4,22 +4,29 @@ import { createStackNavigator} from 'react-navigation-stack'
 import Search from '../Components/Search'
 import StockDetails from '../Components/StockDetails'
 import BuyScreen from '../Components/BuyScreen'
+import Discover from '../Components/Discover'
 
 const SearchStackNavigator = createStackNavigator({
+  Discover: {
+    screen: Discover,
+    navigationOptions: {
+      headerShown: false,
+    }
+  },
   Search: {
     screen: Search,
     navigationOptions: {
       headerShown: false,
     }
   },
-  StockDetails: { // Encore une fois j'ai mis le même nom que celui du component mais libre à vous de choisir un nom différent
+
+  StockDetails: {
     screen: StockDetails,
     navigationOptions: {
       headerShown: false,
-      gestureEnabled : true,
     }
   },
-  BuyScreen: { // Encore une fois j'ai mis le même nom que celui du component mais libre à vous de choisir un nom différent
+  BuyScreen: {
     screen: BuyScreen,
     navigationOptions: {
       headerShown: false,

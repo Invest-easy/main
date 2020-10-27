@@ -6,11 +6,10 @@ import Search from './Components/Search'
 import LineChartLight from './Components/LineChartLight';
 import { NavigationContainer } from '@react-navigation/native';
 import NavSearchAndDetails from './Navigation/NavSearchAndDetails'
+import BottomNav from './Navigation/BottomNav'
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <NavSearchAndDetails/>
-    </NavigationContainer>
+    <BottomNav/>
   );
 }

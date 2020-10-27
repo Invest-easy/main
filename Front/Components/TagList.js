@@ -9,6 +9,7 @@ class TagList extends React.Component {
 
   constructor(props){
     super(props)
+    this.tagPressed = this.props.tagPressed
   }
 
   render() {
@@ -23,7 +24,7 @@ class TagList extends React.Component {
           style = {styles.tags1}
           data={tagsSecteur}
           keyExtractor={(item) => item}
-          renderItem={({item}) => <TagItem addTagFct={this.props.addTagFct} removeTagFct={this.props.removeTagFct} item ={item}/>}
+          renderItem={({item}) => <TagItem addTagFct={this.props.addTagFct} removeTagFct={this.props.removeTagFct} item ={item} tagPressed={this.tagPressed}/>}
           horizontal = {true}
           showsHorizontalScrollIndicator={false}
         />
@@ -31,7 +32,7 @@ class TagList extends React.Component {
           style = {styles.tags2}
           data={tagsPays}
           keyExtractor={(item) => item}
-          renderItem={({item}) => <TagItem addTagFct={this.props.addTagFct} removeTagFct={this.props.removeTagFct} item ={item}/>}
+          renderItem={({item}) => <TagItem addTagFct={this.props.addTagFct} removeTagFct={this.props.removeTagFct} item ={item} tagPressed={this.tagPressed}/>}
           horizontal = {true}
           showsHorizontalScrollIndicator={false}
         />
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
   },
   tags2:{
     marginLeft : 25,
-    marginTop : 5
+    marginTop : 10
   }
 })
 

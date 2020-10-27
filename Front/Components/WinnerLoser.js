@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Color, TouchableOpacity, ImageBackground } from 'react-native';
 import LineChartLight from './LineChartLight';
-import { Avatar, Card, IconButton } from 'react-native-paper';
+import { Avatar, Card, IconButton, Chip} from 'react-native-paper';
 
 
-class StockItem extends React.Component {
+class WinnerLoser extends React.Component {
 
   title_size_fct = function(size) {
      return {
@@ -15,20 +15,16 @@ class StockItem extends React.Component {
 
   render() {
     const {displayDetailsForStock, stock} = this.props
-    var varcolor = stock.isUp ? 'green' : 'red';
-    //var icon = stock.isUp ? require('../Images/green_rectangle.png') : require('../Images/red_rectangle.png');
+    var icon = stock.isUp ? 'green' : 'red'
     var font_size;
     if(stock.name.length > 10){
-      this.font_size = 17;
+      this.font_size = 19;
     } else {
-      this.font_size = 20
+      this.font_size = 21
     }
     return (
       <TouchableOpacity style={styles.main_container} onPress={() => displayDetailsForStock(stock)}>
-        <Image
-          style={styles.image}
-          source={stock.logo_name}
-        />
+
         <View style={styles.content_container}>
           <View style={styles.texts_container}>
             <View style={styles.name_container}>
@@ -36,15 +32,12 @@ class StockItem extends React.Component {
             //  numberOfLines={1}
               // allowFontScaling
                style={this.title_size_fct(this.font_size)}>{stock.name}</Text>
-              <Text style={styles.ticker_text}>{stock.ticker}</Text>
+              {/*<Text style={styles.ticker_text}>{stock.ticker}</Text>*/}
             </View>
-            <View style={styles.chart}>
-              <LineChartLight style={{flex: 1}}/>
-            </View>
-            <View style={styles.price_overall_container}>
 
-                <Text style={styles.price_text}>{stock.lastPrice}€</Text>
-                <Text style={{color:varcolor, fontStyle:'italic', fontSize: 16}}>{stock.var24}</Text>
+            <View style={styles.price_overall_container}>
+              <Chip mode = {'flat'} style={{backgroundColor: icon}} textStyle={{color : 'white', fontSize: 13, fontWeight:'bold'}}>{stock.var24}</Chip>
+
             </View>
           </View>
         </View>
@@ -66,21 +59,19 @@ const styles = StyleSheet.create({
   },
 
   main_container: {
-    height: 80,
+    height: 60,
     flexDirection: 'row',
     borderBottomWidth : 1,
     borderBottomColor : "rgba(140,140,140,.5)",
-    marginLeft:10,
-    marginRight:10,
+    marginLeft:7.5,
   },
   chart:{
     flex : 3
   },
   image: {
-    width: 40,
-    height: 40,
-    marginTop : 20,
-    marginRight : 5
+    marginTop : 18,
+    width: 25,
+    height: 25,
   //  backgroundColor: 'gray'
   },
   content_container: {
@@ -95,23 +86,23 @@ const styles = StyleSheet.create({
   },
   title_text: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 15,
   },
   ticker_text: {
     fontStyle: 'italic',
-    fontSize: 15,
+    fontSize: 12,
     color: '#FC3E6E',
   },
 
   price_overall_container: {
     flex: 2,
     justifyContent : 'center',
-    alignItems: 'flex-end',
+    alignItems: 'center',
   },
   price_text: {
     textAlign: 'center',
-    fontSize: 19,
-    fontWeight:'bold'
+    fontSize: 14,
+    color: 'white'
   },
   price_panelbg:{
   //  backgroundColor: 'red',
@@ -138,4 +129,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default StockItem
+export default WinnerLoser
