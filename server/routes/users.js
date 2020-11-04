@@ -135,10 +135,6 @@ router.delete('/delete/:id', userCtrl.deleteUser);
  */
 router.get('/:id', userCtrl.getUserById);
 
-
-<<<<<<< HEAD
-router.get('/:id', userCtrl.getProfile);
-
 /** 
  * @swagger
  * /users/token:
@@ -165,6 +161,4 @@ router.get('/:id', userCtrl.getProfile);
  *         description: invalid token or user id
  */     
 router.post('/token', userCtrl.checkToken);
-=======
->>>>>>> 5a76d40292c669bb66a3b68a3da3273f4b9c4c66
 module.exports = router;

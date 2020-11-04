@@ -98,7 +98,7 @@ exports.deleteUser = (req, res) => {
 }
 
 exports.getUserById = (req, res) => {
-    User.findById({id: req.params.id}).then((doc) => {
+    User.findById(req.params.id).then((doc) => {
         res.status(200).json(doc);
     }).catch((error) => {
         res.status(404).send({error: error});

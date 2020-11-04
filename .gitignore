@@ -8,3 +8,4 @@ server/requests.rest
 server/.env
 .idea
 
+server/.env
