@@ -16,14 +16,25 @@ const swaggerJSDoc = require('swagger-jsdoc');
 
 const swaggerOptions = {
     swaggerDefinition: {
-        components: {},
         info: {
             title: "NodeJS API",
             description: "API documentation ",
             contact: { name: "Hugo Deroche"},
             server: ['http://localhost:3000']
         },
-        openapi: '3.0.0'
+        openapi: '3.0.0',
+        components: {
+          securityScheme: {
+            bearerAuth: {
+              in: "header",
+              type: "apiKey",
+              scheme: 'bearer',
+              bearerFormat: "JWT",
+              name: "Authorization",
+            }
+          }
+        },
+        security: {bearerAuth: []},
     },
     apis:[
         './routes/*.js',
@@ -91,12 +102,12 @@ server.on('listening', () => {
 /**
  * Endpoints
  */
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swagger.serve, swagger.setup(swaggerDocs, {explorer: true}));
+
 app.use('/users', userRouter);
 app.use('/shares', shareRouter);
 app.use('/wallets', walletRouter)
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
-
-app.use('/api-docs', swagger.serve, swagger.setup(swaggerDocs, {explorer: true}));
 
 
 server.listen(port);
