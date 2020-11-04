@@ -97,9 +97,9 @@ exports.deleteUser = (req, res) => {
     });
 }
 
-exports.getProfile = (req, res) => {
-    User.findOne({email: req.params.email}).then((doc) => {
-        res.status(200).send(doc);
+exports.getUserById = (req, res) => {
+    User.findById({id: req.params.id}).then((doc) => {
+        res.status(200).json(doc);
     }).catch((error) => {
         res.status(404).send({error: error});
     });

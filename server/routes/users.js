@@ -133,5 +133,5 @@ router.delete('/delete/:id', userCtrl.deleteUser);
  *       500:
  *         description: internal error
  */
-router.get('/:id', userCtrl.getProfile);
+router.get('/:id', userCtrl.getUserById);
 module.exports = router;
