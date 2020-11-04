@@ -49,9 +49,7 @@ exports.getAll = (req, res) => {
 
 exports.addShares = (req, res) => {
     Wallet.findById({user_id: req.params.user_id}).then( (doc) =>{
-        req.body.add_share.forEach(element => {
-            doc.portefolio.push({share_id: element.share_id, count: element.count});
-        });
+        doc.portefolio = req.body.add_share.map(element => {element.share_id, element.count});
         res.status(200).send(doc);
     }).catch((err) =>{
         res.status(500).send({error: err});
