@@ -134,4 +134,31 @@ router.delete('/delete/:id', userCtrl.deleteUser);
  *         description: internal error
  */
 router.get('/:id', userCtrl.getProfile);
+
+/** 
+ * @swagger
+ * /users/token:
+ *   post:
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - name: User Authentification
+ *     summary: Check the token
+ *     requestBody:
+ *        content:
+ *          application/json:
+ *             schema:      
+ *               type: object
+ *               properties:
+ *                  user_id:
+ *                     type: string
+ *               example:   
+ *                  user_id: 'here_your_user_id'
+ *     responses:
+ *       200:
+ *         description: valid token
+ *       401:
+ *         description: invalid token or user id
+ */     
+router.post('/token', userCtrl.checkToken);
 module.exports = router;
