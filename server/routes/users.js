@@ -107,7 +107,29 @@ router.get('/', userCtrl.getAllUsers);
  */
 router.post('/login', userCtrl.login);
 
-
+/** 
+ * @swagger
+ *
+ * /users/delete/{id}:
+ *   delete:
+ *     tags:
+ *       - name: User
+ *     summary: Find By id and delete it
+ *     description: Once logged in, looks for a user by id and deletes it
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: The User to look for and delete
+ *     responses:
+ *       200: 
+ *         description: Status OK
+ *       404:
+ *         description: cannot find the wallet
+ *       500:
+ *         description: internal error
+ */
 router.delete('/delete/:id', userCtrl.deleteUser);
 
 /** 
