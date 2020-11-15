@@ -24,8 +24,8 @@ exports.getById = (req, res) => {
         result.portefolio.forEach(elt => {
             Share.findOne({_id: elt.share_id})
                 .then(share => {
-                    index += 1;
                     elt.share_id = share;
+                    index += 1;
                     if (index === lengthPortefolio) {
                         console.log(result);
                         res.status(200).send(result);
