@@ -18,7 +18,7 @@ exports.createWallet = (req, res) =>{
 };
 
 exports.getById = (req, res) => {
-    let index = 1;
+    let index = 0;
     Wallet.findOne({user_id: req.params.id}).lean().then((result) =>{
         const lengthPortefolio = result.portefolio.length;
         result.portefolio.forEach(elt => {
