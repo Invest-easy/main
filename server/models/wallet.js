@@ -44,7 +44,7 @@ const uniqueValidator = require('mongoose-unique-validator');
  */
 const walletSchema = mongoose.Schema({
     user_id: { type: String, required: true , unique: true},
-    portefolio: [{share: String, count: Number}],
+    portefolio: [{share_id: String, count: Number}],
 });
 
 walletSchema.plugin(uniqueValidator);
