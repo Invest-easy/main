@@ -1,7 +1,8 @@
 require('dotenv').config();
 const Wallet = require('../models/wallet');
+const Share = require('../models/share');
 const mongoose = require('mongoose');
-const wallet = require('../models/wallet');
+
 
 exports.createWallet = (req, res) =>{
     const wallet = new Wallet({
@@ -17,14 +18,28 @@ exports.createWallet = (req, res) =>{
 };
 
 exports.getById = (req, res) => {
-    let wallet = null;
-    Wallet.findById({user_id: req.params.id}).then((result) =>{
-        res.status(200).send(result);
-        wallet = result;
-    }).catch((err) => {
+    let index = 1;
+    Wallet.findOne({user_id: req.params.id}).lean().then((result) =>{
+        const lengthPortefolio = result.portefolio.length;
+        result.portefolio.forEach(elt => {
+            Share.findOne({_id: elt.share_id})
+                .then(share => {
+                    index += 1;
+                    elt.share_id = share;
+                    if (index === lengthPortefolio) {
+                        console.log(result);
+                        res.status(200).send(result);
+                        return;
+                    }
+                    })
+                .catch(err => {
+                    res.status(500).json({message: 'Cannot find the share in the database', err});
+                });
+        })
+    })
+    .catch((err) => {
         res.status(404).json({error: err});
     });
-    return wallet
 };
 
 exports.deleteWallet = (req, res) =>{
