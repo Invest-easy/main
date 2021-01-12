@@ -64,7 +64,19 @@ exports.getAll = (req, res) => {
 
 exports.addShares = (req, res) => {
     Wallet.findOne({user_id: req.body.user_id}).then( (doc) =>{
-        doc.portefolio = req.body.portefolio.map(element => {element.share_id, element.count});
+        let isIn = false;
+        req.body.portefolio.forEach(eltReq => {
+            doc.portefolio.forEach(eltDoc => {
+                if (eltDoc.share_id === eltReq.share_id) {
+                    eltDoc.count += eltReq.count
+                    isIn = true;
+                }
+            })
+            if (isIn === false) {
+                doc.portefolio.push(eltReq);
+            }
+        })
+        doc.save();
         res.status(200).send(doc);
     }).catch((err) =>{
         res.status(500).send({error: err});
