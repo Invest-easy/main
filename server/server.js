@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken')
 
 const mongoose = require('mongoose');
 const userRouter = require('./routes/users');
+const dataRouter = require('./routes/data');
 const shareRouter = require('./routes/shares');
 const walletRouter = require('./routes/wallets');
 const swagger = require('swagger-ui-express');
@@ -106,6 +107,7 @@ const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use('/api-docs', swagger.serve, swagger.setup(swaggerDocs, {explorer: true}));
 
 app.use('/users', userRouter);
+app.use('/data', dataRouter);
 app.use('/shares', shareRouter);
 app.use('/wallets', walletRouter)
 
