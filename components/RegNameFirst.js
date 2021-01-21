@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, ImageBackground,
   Dimensions, Image, Text, TouchableOpacity } from 'react-native';
 
@@ -13,6 +13,17 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const { width: WIDTH } = Dimensions.get('window');
 
 class RegNameFirst extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      textName: '',
+      textFName: ''
+    };
+  };
+  userSignup() {
+    const { textName } = this.state.textName;
+    const { textFName } = this.state.textFName;
+  }
   render() {
     return (
       <ImageBackground source={ bgImage } style={ styles.backgroundContainer }>
@@ -25,7 +36,9 @@ class RegNameFirst extends React.Component {
           <TextInput
             style = { styles.input }
             placeholder={'First Name'}
-            placeholderTextColor={'rgba(0,0,0,0.7)'}
+            placeholderTextColor={'rgba(0,0,0,0.7)'}     
+            onChangeText={(text) => this.setState({textFName:text})}
+            value={this.state.textFName}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -33,12 +46,19 @@ class RegNameFirst extends React.Component {
           <TextInput
             style = { styles.input }
             placeholder={'Name'}
-            placeholderTextColor={'rgba(0,0,0,0.7)'}
+            placeholderTextColor={'rgba(0,0,0,0.7)'}     
+            onChangeText={(text) => this.setState({textName:text})}
+            value={this.state.textName}
           />
         </View>
 
         <TouchableOpacity style={styles.btnLog}
-          onPress={() => this.props.navigation.navigate('Register1')}>
+          onPress={() => {
+            this.userSignup();
+            console.log(this.state.textFName);
+            console.log(this.state.textName);
+            this.props.navigation.navigate('Register1')
+          }}>
           <Text style={styles.logText}>Next</Text>
         </TouchableOpacity>
       </ImageBackground>
