@@ -151,8 +151,7 @@ class Discover extends React.Component {
 
           <View style={{flexDirection:'row', alignItems:'center'}}>
             <Text style={styles.part_title}>Tendances</Text>
-            <Button icon="fire" labelStyle={{fontSize : 30, color:'red'}}>
-             </Button>
+            <Button icon="fire" labelStyle={{fontSize : 30, color:'red'}}></Button>
           </View>
           <FlatList
             data={this.state.stocks.sort((a, b) => this._SortDoubles(a.volume, b.volume)).slice(0,5)}

@@ -8,15 +8,25 @@ import BuyButton from './BuyButton'
 import ChartDetails from './ChartDetails'
 import Modal from 'react-native-modal'
 import LineChartLight from './LineChartLight'
-
+import CardStock from './CardStock'
+import stocks from '../Helpers/StockData'
 
 
 class StockDetails extends React.Component {
+  constructor(props){
+    super(props)
+    this.changeChartPrice = this.changeChartPrice.bind(this)
+}
 
   state = {
       scrollY: new Animated.Value(0),
-      snackVisible: false
+      snackVisible: false,
+
     };
+
+  changeChartPrice(date,price){
+    console.log(date + " " + price)
+  }
 
   title_size_fct = function(size) {
      return {
@@ -58,6 +68,13 @@ class StockDetails extends React.Component {
           useNativeDriver: true
       });
   };
+
+  _displayDetailsForStock = (idStock) => {
+    this.props.navigation.navigate("StockDetails", {idStock: idStock})
+  }
+
+componentDidUpdate = () => setTimeout(() => {this.refs._scrollView.scrollTo({y:0});
+console.log("updated")}, 10);
 
   render() {
 
@@ -113,6 +130,7 @@ class StockDetails extends React.Component {
 
         <View style={styles.body}>
           <Animated.ScrollView style={styles.scrollpart}
+            ref='_scrollView'
             scrollEventThrottle={16}
             onScroll={Animated.event(
               [
@@ -137,24 +155,25 @@ class StockDetails extends React.Component {
                 />
               </View>
             </View>
+            <View style={styles.tags1}>
+              {/*tags*/}
+              <FlatList
+                data={stock.tags}
+                keyExtractor={(item) => item}
+                renderItem={({item}) => <TagItDetails item ={item}/>}
+                horizontal = {true}
+                showsHorizontalScrollIndicator={false}
+              />
+            </View>
               {/*chart*/}
               <View style = {styles.chart_container}>
-                <LineChartLight style={{flex: 1}}/>
+                <ChartDetails changeChartPrice={this.changeChartPrice} style={{flex: 1}}/>
               </View>
               <View style={styles.belowchart_container}>
-                <View style={styles.tags1}>
-                  {/*tags*/}
-                  <FlatList
-                    data={stock.tags}
-                    keyExtractor={(item) => item}
-                    renderItem={({item}) => <TagItDetails item ={item}/>}
-                    horizontal = {true}
-                    showsHorizontalScrollIndicator={false}
-                  />
-                </View>
                 <View style={styles.description_container}>
-                  <Text style={{fontSize : 18, fontWeight: 'bold'}}>A propos</Text>
-                  <Text style={{fontSize : 15, marginTop : 2}}>{stock.description}</Text>
+                  <Text style={{fontSize : 20, fontWeight: 'bold'}}>A propos</Text>
+
+                  <Text style={{fontSize : 17, marginTop : 5}}>{stock.description}</Text>
                 </View>
                 {/*Variation 24H*/}
                 <View style={styles.variation_container}>
@@ -192,6 +211,22 @@ class StockDetails extends React.Component {
                     <Text style={styles.text_basic_item}>{stock.per}</Text>
                   </View>
                 </View>
+
+                {/*RELATED ------------- ONLY RELATED TO FIRST TAG ATM*/}
+                <View style={{marginTop : 10}}>
+                  <Text style={{marginLeft : 10, fontSize : 30, fontWeight:'bold'}}>Découvrez aussi...</Text>
+                  <FlatList
+                    style={{marginTop : 10}}
+                    data={stocks.filter(x => x.tags.includes(stock.tags[0]) && x.ticker != stock.ticker).slice(0,5)}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item) => item.ticker}
+                    renderItem={({item}) => <CardStock displayDetailsForStock={this._displayDetailsForStock} stock={item}/>}
+                  />
+                </View>
+
+
+
               </View>
           </Animated.ScrollView>
           <Snackbar
@@ -296,7 +331,7 @@ const styles = StyleSheet.create({
   },
   chart_container: {
     //flex:4,
-    height : 250,
+    height : 350,
     marginTop : 10
     //backgroundColor: 'gray'
   },
@@ -305,15 +340,16 @@ const styles = StyleSheet.create({
   },
   tags1: {
     marginTop : 15,
-    marginLeft : 5
+    marginLeft : 5,
+
   },
   description_container: {
     borderBottomColor : "rgba(140,140,140,.5)",
     borderBottomWidth : 1,
     borderTopColor : "rgba(140,140,140,.5)",
     borderTopWidth : 0,
-    marginTop : 10,
-    paddingBottom : 7,
+    marginTop : 5,
+    paddingBottom : 15,
     marginLeft : 10,
     marginRight : 10,
   },
@@ -323,8 +359,8 @@ const styles = StyleSheet.create({
     borderBottomWidth : 1,
     marginLeft : 10,
     marginRight : 10,
-    paddingTop : 7,
-    paddingBottom : 7,
+    paddingTop : 12.5,
+    paddingBottom : 12.5,
     alignItems: 'center',
   },
   text_basic_item:{
@@ -350,8 +386,8 @@ const styles = StyleSheet.create({
     borderBottomWidth : 1,
     marginLeft : 10,
     marginRight : 10,
-    paddingTop : 5,
-    paddingBottom : 5,
+    paddingTop : 10,
+    paddingBottom : 10,
     alignItems: 'center',
   },
   buysellbu_container: {
