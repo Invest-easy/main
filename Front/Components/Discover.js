@@ -165,13 +165,13 @@ class Discover extends React.Component {
             <Text style={styles.part_title}>Catégories</Text>
             <TagList addTagFct = {this.addTagToList} removeTagFct={this.removeTagFromList}
             />
-            <FlatList
+            {/*<FlatList
               data={["testA", "testB"]}
               horizontal={true}
               showsHorizontalScrollIndicator={false}
               keyExtractor={(item) => item}
               renderItem={({item}) => <Chip mode = {'flat'} onPress={() => console.log({item})}>{item}</Chip>}
-            />
+            />*/}
 
           </View>
 

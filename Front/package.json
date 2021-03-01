@@ -11,6 +11,7 @@
     "@rainbow-me/animated-charts": "^1.0.0-alpha.3",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.7.6",
+    "@react-navigation/stack": "^5.13.0",
     "d3-shape": "^2.0.0",
     "date-fns": "^2.16.1",
     "expo": "~39.0.2",
