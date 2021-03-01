@@ -107,7 +107,29 @@ router.get('/', userCtrl.getAllUsers);
  */
 router.post('/login', userCtrl.login);
 
-
+/** 
+ * @swagger
+ *
+ * /users/delete/{id}:
+ *   delete:
+ *     tags:
+ *       - name: User
+ *     summary: Find By id and delete it
+ *     description: Once logged in, looks for a user by id and deletes it
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         type: string
+ *         required: true
+ *         description: The User to look for and delete
+ *     responses:
+ *       200: 
+ *         description: Status OK
+ *       404:
+ *         description: cannot find the wallet
+ *       500:
+ *         description: internal error
+ */
 router.delete('/delete/:id', userCtrl.deleteUser);
 
 /** 
@@ -133,5 +155,32 @@ router.delete('/delete/:id', userCtrl.deleteUser);
  *       500:
  *         description: internal error
  */
-router.get('/:id', userCtrl.getProfile);
+router.get('/:id', userCtrl.getUserById);
+
+/** 
+ * @swagger
+ * /users/token:
+ *   post:
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - name: User Authentification
+ *     summary: Check the token
+ *     requestBody:
+ *        content:
+ *          application/json:
+ *             schema:      
+ *               type: object
+ *               properties:
+ *                  user_id:
+ *                     type: string
+ *               example:   
+ *                  user_id: 'here_your_user_id'
+ *     responses:
+ *       200:
+ *         description: valid token
+ *       401:
+ *         description: invalid token or user id
+ */     
+router.post('/token', userCtrl.checkToken);
 module.exports = router;

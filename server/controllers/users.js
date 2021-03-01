@@ -86,21 +86,34 @@ exports.login = (req, res) => {
 };
 
 exports.deleteUser = (req, res) => {
-    User.findByIdAndDelete(req.params.id, (err, result) => {
-        if(!err && result){
-        console.log('User : ' + req.params.id + ' deleted' );
-        res.status(200).send({message: 'Successfully deleted the User : ' + req.params.id});
-        }else{
-            console.error(err);
-            res.status(500).send({error: err})
-        }
-    });
+    User.findByIdAndDelete(req.params.id, err => {
+        if (err) console.error(err);
+        console.log('Successfully deleted')
+        res.status(200).send({status: 200});
+    })
 }
 
-exports.getProfile = (req, res) => {
-    User.findOne({email: req.params.email}).then((doc) => {
-        res.status(200).send(doc);
+exports.getUserById = (req, res) => {
+    User.findById(req.params.id).then((doc) => {
+        res.status(200).json(doc);
     }).catch((error) => {
         res.status(404).send({error: error});
     });
+}
+
+exports.checkToken = (req, res) => {
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+        const userId = decodedToken.userId;
+        if (req.body.userId && req.body.userId !== userId) {
+            console.log('Invalid User Id');
+            res.status(401).send({token: 'Invalid User Id'});
+        } else {
+            // Continues if the token is valid && and the user is valid
+            res.status(200).send({token: token});
+        }
+      } catch {
+        res.status(401).send({token: 'Invalid Token'});
+    }
 }

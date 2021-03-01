@@ -125,12 +125,8 @@ router.delete('/delete/:id', walletCtrl.deleteWallet);
  *               properties:
  *                 user_id:
  *                     type: string
- *                 portefolio:
- *                     type: Array
- *                     description: empty by default
  *               example:   
  *                  user_id: 27enefnZDZIjdiz
- *                  portefolio: []
  *     responses:
  *       200: 
  *         description: Status OK

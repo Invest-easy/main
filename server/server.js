@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken')
 
 const mongoose = require('mongoose');
 const userRouter = require('./routes/users');
+const dataRouter = require('./routes/data');
 const shareRouter = require('./routes/shares');
 const walletRouter = require('./routes/wallets');
 const swagger = require('swagger-ui-express');
@@ -16,14 +17,25 @@ const swaggerJSDoc = require('swagger-jsdoc');
 
 const swaggerOptions = {
     swaggerDefinition: {
-        components: {},
         info: {
             title: "NodeJS API",
             description: "API documentation ",
             contact: { name: "Hugo Deroche"},
             server: ['http://localhost:3000']
         },
-        openapi: '3.0.0'
+        openapi: '3.0.0',
+        components: {
+          securityScheme: {
+            bearerAuth: {
+              in: "header",
+              type: "apiKey",
+              scheme: 'bearer',
+              bearerFormat: "JWT",
+              name: "Authorization",
+            }
+          }
+        },
+        security: {bearerAuth: []},
     },
     apis:[
         './routes/*.js',
@@ -56,7 +68,7 @@ const normalizePort = val => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3500');
 app.set('port', port);
 
 const errorHandler = error => {
@@ -91,12 +103,13 @@ server.on('listening', () => {
 /**
  * Endpoints
  */
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swagger.serve, swagger.setup(swaggerDocs, {explorer: true}));
+
 app.use('/users', userRouter);
+app.use('/data', dataRouter);
 app.use('/shares', shareRouter);
 app.use('/wallets', walletRouter)
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
-
-app.use('/api-docs', swagger.serve, swagger.setup(swaggerDocs, {explorer: true}));
 
 
 server.listen(port);
