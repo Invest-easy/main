@@ -9,3 +9,6 @@ server/.env
 .idea
 
 server/.env
+
+Front/node_modules
+Front/package-lock.json
