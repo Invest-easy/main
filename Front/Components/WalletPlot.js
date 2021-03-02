@@ -26,7 +26,7 @@ export default function Plot() {
                 { x: 5, y: 3500},
                 { x: 6, y: 4015}]}
                 labels={({ datum }) => `${datum.y}`}
-                labelComponent={<VictoryTooltip style={{ fill: "tomato" }} active={false}/>}
+                labelComponent={<VictoryTooltip renderInPortal={false} style={{ fill: "tomato" }} active={false}/>}
                 />
                 
           <VictoryAxis dependentAxis

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@rainbow-me/animated-charts": "^1.0.0-alpha.3",
+    "@react-native-async-storage/async-storage": "^1.13.4",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/native": "^5.7.6",
     "d3-shape": "^2.0.0",

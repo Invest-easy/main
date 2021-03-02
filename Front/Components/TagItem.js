@@ -26,11 +26,11 @@ class TagItem extends React.Component {
 
   render() {
     const item = this.props.item
-
+    {/*
     if(this.tagPressed != undefined){
       console.log("yessss")
     }
-
+    */}
     return (
       <Chip style={styles.chip}
             onPress={() => this._pressed({item})}
