@@ -13,7 +13,7 @@ class ChartDetails extends React.PureComponent {
   constructor () {
     super()
     this.state = {
-      selectedIndex: 0,
+        selectedIndex: 0,
     }
     this.updateIndex = this.updateIndex.bind(this)
   }
@@ -136,7 +136,9 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 20,
         borderWidth: 0,
         marginLeft:7.5,
-        marginRight : 7.5
+        marginRight : 7.5,
+        borderWidth: 1,
+        borderColor: 'black'
     },
     selectedButtonStyle: {
         backgroundColor: '"rgb(210,210,210)"',

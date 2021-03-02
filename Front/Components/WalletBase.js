@@ -20,17 +20,17 @@ export default function WalletBase() {
     <Text style={{fontWeight:'bold', fontSize: 40, marginLeft: 10}}>Portefeuille</Text>
 
         <View style={{flexDirection:'row'}}>
-          <Text style={styles.balance}>$ {balance}</Text>
+          <Text style={styles.balance}>{balance} €</Text>
           <TouchableOpacity style={styles.eye} onPress={() => {
              if(balance === ' ****')
              {
-               changeVisibility(' 4015.53') // Il faudra aller chercher la valeur qui correspond à la personne connectée
+               changeVisibility(' 22.90') // Il faudra aller chercher la valeur qui correspond à la personne connectée
              }
              else{
               changeVisibility(' ****')
              }
              }}>
-               <Icon style={styles.eyicon} name="ios-eye" size={25} color={'#c0c0c0'} />
+              <Icon style={styles.eyicon} name="ios-eye" size={25} color={'#c0c0c0'} />
           </TouchableOpacity>
         </View>
 
@@ -48,8 +48,8 @@ export default function WalletBase() {
           }
           <Legend text={'Amazon'} color={'red'}/>
           <Legend text={'Apple'} color={'orange'}/>
-          <Legend text={'Tesla'} color={'yellow'}/>
-          <Legend text={'Microsoft'} color={'yellowgreen'}/>
+          <Legend text={'Tesla'} color={'yellowgreen'}/>
+          <Legend text={'Microsoft'} color={'olive'}/>
           <Legend text={'LVMH'} color={'green'}/>
 
         </View>
