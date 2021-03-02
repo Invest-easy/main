@@ -1,11 +1,15 @@
+import "react-native-gesture-handler";
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
+import Root from "../Root";
 
-const SettingsBase = () => {
+export default function SettingsBase() {
   return (
-    //put your component here (or its internal navigation component)
-    <Text style={{marginTop : 30}}>Settings</Text>  )
+    <NavigationContainer>
+      <Root />
+    </NavigationContainer>
+  );
 }
-
-export default SettingsBase
