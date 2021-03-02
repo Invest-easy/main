@@ -8,9 +8,7 @@ import Plot from './WalletPlot'
 import Timeline from './WalletTimeline'
 
 
-
 export default function WalletBase() {
-
 
   const [balance, changeVisibility] = useState(' ****')
   
