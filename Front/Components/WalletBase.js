@@ -17,28 +17,25 @@ export default function WalletBase() {
 
   return (
     <View style={styles.container}>
-    <Text style={{fontWeight:'bold', fontSize: 40, marginLeft: 10}}>Portefeuille</Text>
-
-        <View style={{flexDirection:'row'}}>
-          <Text style={styles.balance}>$ {balance}</Text>
-          <TouchableOpacity style={styles.eye} onPress={() => {
-             if(balance === ' ****')
-             {
-               changeVisibility(' 4015.53') // Il faudra aller chercher la valeur qui correspond à la personne connectée
-             }
-             else{
-              changeVisibility(' ****')
-             }
-             }}>
-               <Icon style={styles.eyicon} name="ios-eye" size={25} color={'#c0c0c0'} />
-          </TouchableOpacity>
-        </View>
-
+      <Text style={{fontWeight:'bold', fontSize: 40, marginLeft: 10}}>Portefeuille</Text>
+      <View style={{flexDirection:'row', marginBottom: 10}}>
+        <Text style={styles.balance}>{balance}€</Text>
+        <TouchableOpacity style={styles.eye} onPress={() => {
+           if(balance === ' ****')
+           {
+             changeVisibility(' 22.90') // Il faudra aller chercher la valeur qui correspond à la personne connectée
+           }
+           else{
+            changeVisibility(' ****')
+           }
+           }}>
+             <Icon style={styles.eyicon} name="ios-eye" size={25} color={'#c0c0c0'} />
+        </TouchableOpacity>
+      </View>
       {/*A changer*/}
       <View style={{marginTop : -75}}>
         <Plot style={{flex: 1}}/>
       </View>
-      {/*<Timeline style={styles.timeline}/>*/}
       <View style={styles.piechart}>
         <PieChart />
         <View style={{ paddingRight: 35, alignItems: 'flex-start', height: 150, marginBottom: 25 }}>
@@ -64,7 +61,7 @@ export default function WalletBase() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 100,
+    marginTop: 50,
   //  backgroundColor: "#222",
 
   },

@@ -8,7 +8,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff",
+      "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -30,6 +30,7 @@
     },
     "experiments": {
       "turboModules": true
-    }
+    },
+    "description": "Very early interface-ready alpha version with no connection to the backend"
   }
 }

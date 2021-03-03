@@ -27,8 +27,8 @@ export default class Parametres extends React.Component {
         return (
           <SafeAreaView style={{ flex: 1 }}>
             <ScrollView style={{ flex: 1 }}>
-              <View style={{ height: 730 }}>
-                <Text style={styles.id}>id à récupérer</Text>
+              <View style={{ marginTop: 10 }}>
+                {/* <Text style={styles.id}>id à récupérer</Text>
                 <Text
                 style={{
                     fontSize: 16,
@@ -40,6 +40,7 @@ export default class Parametres extends React.Component {
                 >
                 id à récupérer
                 </Text>
+                */}
 
                 <TouchableOpacity onPress={() => navigate('Identite')}>
                 <View

@@ -6,9 +6,11 @@ import { VictoryPie, VictoryChart, VictoryTheme, VictoryLabel } from 'victory-na
 
 
 const sampleData = [
-    { x: "Apple", y: 60 },
-    { x: "Google", y: 30 },
-    { x: "Amazon", y: 10 }
+    { x: "Amazon", y: 60 },
+    { x: "Apple", y: 30 },
+    { x: "Tesla", y: 15 },
+    { x: "Microsoft", y: 12 },
+    { x: "LVMH", y: 10 }
   ];
 
 let sum = 0;
@@ -34,9 +36,9 @@ export default function PieChart() {
 
   return (
     <View style={styles.container}>
-        <VictoryPie width={230}
+        <VictoryPie width={230} height={300}
             theme={VictoryTheme.grayscale}
-            colorScale={["red", "orange", "yellow", "cyan", "navy", "red" ]}
+            colorScale={["red", "orange", "yellow", "yellowgreen", "green", "red" ]}
             data={data}
             innerRadius={80}
             cornerRadius={5}
