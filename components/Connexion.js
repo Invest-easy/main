@@ -77,7 +77,9 @@ class Connexion extends React.Component {
               "email": this.state.textEmail,
               "password": this.state.textPass
             })
-          }).then(res=>res.json()).then(console.log)
+          }).then(res=>res.json()).then(data=>{
+            console.log(data.token)
+          })
           .catch(res=>console.log(res))
 
           this.props.navigation.navigate('Home')}
