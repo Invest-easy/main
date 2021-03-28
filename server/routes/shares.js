@@ -34,6 +34,8 @@ const share = require('../models/share');
  *                     type: boolean
  *                 capitalisation:
  *                     type: number
+ *                 logo_name:
+ *                     type: string
  *                 tags:
  *                     type: Array<String>
  *                 volume:
@@ -47,6 +49,7 @@ const share = require('../models/share');
  *                  lastPrice: 302.12
  *                  isUp: true
  *                  capitalisation: 290920192
+ *                  logo_name: "../Images/aapl.png"
  *                  tags: ["Tech", "CAC40"]
  *                  volume: 3938293
  *                  per: 3781938

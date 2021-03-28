@@ -32,6 +32,9 @@ const uniqueValidator = require('mongoose-unique-validator');
  *          capitalisation:
  *              type: string
  *              description: amount of money
+ *          logo_name:
+ *              type: string
+ *              description: url of the logo
  *          tags:
  *              type: Array<String>
  *          volume:
@@ -46,6 +49,7 @@ const shareSchema = mongoose.Schema({
     lastPrice: {type: Number, required: true},
     isUp:{type: Boolean, required: true},
     capitalisation: {type: Number, required: true},
+    logo_name: {type: String, required: true},
     tags:{type: [String], required: true},
     volume :{type: Number, required: true},
     per:{type: Number , required: true}

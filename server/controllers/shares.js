@@ -11,6 +11,7 @@ exports.add = async (req, res) => {
             lastPrice: req.body.lastPrice,
             isUp: req.body.isUp,
             capitalisation: req.body.capitalisation,
+            logo_name: req.body.logo_name,
             tags: req.body.tags,
             volume: req.body.volume,
             per: req.body.per
