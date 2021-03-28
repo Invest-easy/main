@@ -1,12 +1,10 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, {useState} from 'react';
 import { StyleSheet, View, ImageBackground,
-  Dimensions, Image, Text, TouchableOpacity } from 'react-native';
+  Dimensions, Image, Text, TouchableOpacity, TextInput } from 'react-native';
 
 import bgImage from '../assets/bgConnexion.jpg';
 import logo from '../assets/logo.png';
-
-import DatePicker from 'react-native-datepicker';
 
 import PhoneInput from 'react-native-phone-input';
 
@@ -14,12 +12,46 @@ import PhoneInput from 'react-native-phone-input';
 const { width: WIDTH } = Dimensions.get('window');
 
 class RegBirthTel extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {date:''}
-      }
+  
+  constructor(props) {
+    super(props);
+    this.state = { date: null, dt: null, registrationDate: '', textNum: '' };
+  }
+  checkValue(str, max) {
+    if (str.charAt(0) !== '0' || str == '00') {
+      var num = parseInt(str);
+      if (isNaN(num) || num <= 0 || num > max) num = 1;
+      str =
+        num > parseInt(max.toString().charAt(0)) && num.toString().length == 1
+          ? '0' + num
+          : num.toString();
+    }
+    return str;
+  }
+  userSignup() {
+    const { textNum } = this.state.textNum;
+  }
 
-    render() {
+  dateTimeInputChangeHandler = (e) => {
+    this.type = 'text';
+    var input = e;
+    var expr = new RegExp(/\D\/$/);
+    if (expr.test(input)) input = input.substr(0, input.length - 3);
+    var values = input.split('/').map(function (v) {
+      return v.replace(/\D/g, '');
+    });
+    if (values[1]) values[1] = this.checkValue(values[1], 12);
+    if (values[0]) values[0] = this.checkValue(values[0], 31);
+    var output = values.map(function (v, i) {
+      return v.length == 2 && i < 2 ? v + '/' : v;
+    });
+    this.setState({
+      registrationDate: output.join('').substr(0, 14),
+    });
+  };
+  
+  render() {
+    const data = this.props.route.params;
     return (
       <ImageBackground source={ bgImage } style={ styles.backgroundContainer }>
         <View style = { styles.logoContainer}>
@@ -34,37 +66,49 @@ class RegBirthTel extends React.Component {
             cancelText='Cancel'
             textStyle={{fontSize: 14}}
             textProps={{placeholder: 'Choose telephone number and Country'}}
+            onChangePhoneNumber={(text) => this.setState({textNum:text})}
+            value={this.state.textNum}
           />
         </View>
         <View style={styles.inputContainer}>
-          <DatePicker
-            style={styles.inputDate}
-            date={this.state.date}
-            mode="date"
-            placeholder="Select Brithday"
-            placeholderTextColor={'rgba(255,255,255,0.7)'}
-            format="DD-MM-YYYY"
-            minDate="01-01-1950"
-            maxDate="31-07-2002"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-            dateIcon: {
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 5
-            },
-            dateInput: {
-                marginLeft: 0,
-            }
+          
+          <TextInput
+            style={{
+              width: WIDTH - 50,
+              height: 40,
+              paddingLeft: 6,
+              marginHorizontal: 25,
+              textAlign: 'center',
+              backgroundColor: 'white',
+              padding: 10,
+              marginBottom: 30,
+              borderWidth: 1,
+              borderColor: 'black',
+              paddingHorizontal: 30,
             }}
-            onDateChange={(date) => {this.setState({date: date})}}
-        />
+            keyboardType="number-pad"
+            maxLength={10}
+            placeholder="DD/MM/YYYY"
+            onChangeText={(e) => this.dateTimeInputChangeHandler(e)}
+            value={this.state.registrationDate}
+          />
         </View>
 
         <TouchableOpacity style={styles.btnLog}
-          onPress={() => this.props.navigation.navigate('Register3')}>
+          onPress={() => {
+            this.userSignup();
+
+            console.log(data);
+
+            this.props.navigation.navigate('Register3', {
+              name: data.name,
+              firstname: data.firstname,
+              email: data.email,
+              password: data.password,
+              telephone: this.state.textNum,
+              birthDate: this.state.registrationDate
+            })
+          }}>
           <Text style={styles.logText}>Next</Text>
         </TouchableOpacity>
       </ImageBackground>
@@ -77,7 +121,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-    justifyContent: 'center',
+    paddingTop: 35,
     alignItems: 'center',
   },
   logoContainer: {
@@ -106,14 +150,6 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.7)',
     marginHorizontal: 25,
   },
-  inputDate: {
-    width: WIDTH - 50,
-    height: 40,
-    fontSize: 18,
-    backgroundColor: 'white',
-    color: 'rgba(255, 255, 255, 0.7)',
-    marginHorizontal: 25,
-  },
   inputIcon: {
     position: 'absolute',
     top: 8,
@@ -131,11 +167,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 20,
     textAlign: 'center',
-  },
-  datePickerStyle: {
-    width: 200,
-    marginTop: 20,
-  },
+  }
 });
 
 export default RegBirthTel

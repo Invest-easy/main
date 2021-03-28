@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, TextInput, ImageBackground,
   Dimensions, Image, Text, TouchableOpacity } from 'react-native';
 
@@ -7,7 +7,6 @@ import bgImage from '../assets/bgConnexion.jpg';
 import logo from '../assets/logo.png';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 
 
 const { width: WIDTH } = Dimensions.get('window');
@@ -55,9 +54,11 @@ class RegNameFirst extends React.Component {
         <TouchableOpacity style={styles.btnLog}
           onPress={() => {
             this.userSignup();
-            console.log(this.state.textFName);
-            console.log(this.state.textName);
-            this.props.navigation.navigate('Register1')
+
+            this.props.navigation.navigate('Register1', {
+              name: this.state.textName,
+              firstname: this.state.textFName
+            })
           }}>
           <Text style={styles.logText}>Next</Text>
         </TouchableOpacity>

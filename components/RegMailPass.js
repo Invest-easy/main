@@ -14,22 +14,30 @@ import Icon1 from 'react-native-vector-icons/Entypo';
 const { width: WIDTH } = Dimensions.get('window');
 
 class RegMailPass extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-          showPass: true,
-          press: false
-        }
-      }
+  constructor(props) {
+    super(props);
+    this.state = {
+      textEmail: '',
+      textPass: '',
+      showPass: true,
+      press: false
+    };
     
-      showPass = () => {
-        if(this.state.press == false) {
-          this.setState( {showPass: false, press: true })
-        } else {
-          this.setState( {showPass: true, press: false })
-        }
-      }
+  };
+  userSignup() {
+    const { textEmail } = this.state.textEmail;
+    const { textPass } = this.state.textPass;
+  }
+    
+  showPass = () => {
+    if(this.state.press == false) {
+      this.setState( {showPass: false, press: true })
+    } else {
+      this.setState( {showPass: true, press: false })
+    }
+  }
   render() {
+    const data = this.props.route.params;
     return (
       <ImageBackground source={ bgImage } style={ styles.backgroundContainer }>
         <View style = { styles.logoContainer}>
@@ -44,6 +52,8 @@ class RegMailPass extends React.Component {
             placeholderTextColor={'rgba(0,0,0,0.7)'}
             keyboardType='email-address'
             autoCompleteType='email'
+            onChangeText={(text) => this.setState({textEmail:text})}
+            value={this.state.textEmail}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -52,7 +62,9 @@ class RegMailPass extends React.Component {
             style = { styles.input }
             placeholder={'Choose your password'}
             secureTextEntry={this.state.showPass}
-            placeholderTextColor={'rgba(0,0,0,0.7)'}
+            placeholderTextColor={'rgba(0,0,0,0.7)'}     
+            onChangeText={(text) => this.setState({textPass:text})}
+            value={this.state.textPass}
           />
 
           <TouchableOpacity style={styles.btnEye} onPress={this.showPass.bind(this)}>
@@ -62,7 +74,18 @@ class RegMailPass extends React.Component {
         </View>
 
         <TouchableOpacity style={styles.btnLog}
-          onPress={() => this.props.navigation.navigate('Register2')}>
+          onPress={() => {
+            this.userSignup();
+            
+            console.log(data);
+
+            this.props.navigation.navigate('Register2', {
+              name: data.name,
+              firstname: data.firstname,
+              email: this.state.textEmail,
+              password: this.state.textPass
+            })
+          }}>
           <Text style={styles.logText}>Next</Text>
         </TouchableOpacity>
       </ImageBackground>

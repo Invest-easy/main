@@ -17,27 +17,27 @@ function HomeScreen({ navigation }) {
   );
 }
 
-function RegNF({ navigation }) {
+function RegNF({ route, navigation }) {
   return (
-    <RegNameFirst navigation={ navigation }/>
+    <RegNameFirst navigation={ navigation } route={route}/>
   );
 }
 
-function RegMP({ navigation }) {
+function RegMP({ route, navigation }) {
   return (
-    <RegMailPass navigation={ navigation }/>
+    <RegMailPass navigation={ navigation } route={route}/>
   );
 }
 
-function RegBT({ navigation }) {
+function RegBT({ route, navigation }) {
   return (
-    <RegBirthTel navigation={ navigation }/>
+    <RegBirthTel navigation={ navigation } route={route}/>
   );
 }
 
-function RegAN({ navigation }) {
+function RegAN({ route, navigation }) {
   return (
-    <RegAddNat navigation={ navigation }/>
+    <RegAddNat navigation={ navigation } route={route}/>
   );
 }
 

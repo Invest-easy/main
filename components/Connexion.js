@@ -16,7 +16,9 @@ class Connexion extends React.Component {
     super()
     this.state = {
       showPass: true,
-      press: false
+      press: false,
+      textEmail: '',
+      textPass: ''
     }
   }
 
@@ -38,8 +40,12 @@ class Connexion extends React.Component {
           <Icon name='user-secret' size={28} color={'rgba(255,255,255,0.7)'} style={styles.inputIcon} />
           <TextInput
             style = { styles.input }
-            placeholder={'Username'}
+            placeholder={'Enter your email'}
             placeholderTextColor={'rgba(255,255,255,0.7)'}
+            keyboardType='email-address'
+            autoCompleteType='email'
+            onChangeText={(text) => this.setState({textEmail:text})}
+            value={this.state.textEmail}
           />
         </View>
         <View style={styles.inputContainer}>
@@ -47,8 +53,10 @@ class Connexion extends React.Component {
           <TextInput
             style = { styles.input }
             placeholder={'Password'}
-            secureTextEntry={this.state.showPass}
             placeholderTextColor={'rgba(255,255,255,0.7)'}
+            secureTextEntry={this.state.showPass}   
+            onChangeText={(text) => this.setState({textPass:text})}
+            value={this.state.textPass}
           />
 
           <TouchableOpacity style={styles.btnEye} onPress={this.showPass.bind(this)}>
@@ -57,7 +65,23 @@ class Connexion extends React.Component {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.btnLog}>
+        <TouchableOpacity style={styles.btnLog}
+        onPress={() => {
+          fetch('https://invest3asy.herokuapp.com/users/login', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              "email": this.state.textEmail,
+              "password": this.state.textPass
+            })
+          }).then(res=>res.json()).then(console.log)
+          .catch(res=>console.log(res))
+
+          this.props.navigation.navigate('Home')}
+          }>
           <Text style={styles.logText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnLog2} 
